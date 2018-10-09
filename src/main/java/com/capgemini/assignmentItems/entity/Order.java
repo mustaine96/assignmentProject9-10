@@ -1,5 +1,6 @@
 package com.capgemini.assignmentItems.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="orderTable")
-public class Order {
+public class Order implements Serializable{
 	@Id
 	int orderId;
 	double orderTotalAmount;
@@ -18,6 +19,9 @@ public class Order {
 	@OneToMany(mappedBy="order")
 	List<Items> itemsInOrder;
 	
+	public Order() {
+		super();
+	}
 	public Order(int orderId, double orderTotalAmount, LocalDate orderDate, List<Items> itemsInOrder) {
 		super();
 		this.orderId = orderId;

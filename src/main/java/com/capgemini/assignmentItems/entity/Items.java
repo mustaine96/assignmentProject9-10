@@ -1,5 +1,7 @@
 package com.capgemini.assignmentItems.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -7,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name="itemsTable")
-public class Items {
+public class Items implements Serializable{
 	@Id
 	int itemId;
 	int quantity;
@@ -24,6 +26,11 @@ public class Items {
 		this.productId = productId;
 		this.order = order;
 	}
+	
+	public Items() {
+		super();
+	}
+
 	public int getItemId() {
 		return itemId;
 	}
