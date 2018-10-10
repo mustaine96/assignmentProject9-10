@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -16,8 +17,8 @@ public class Order implements Serializable{
 	int orderId;
 	double orderTotalAmount;
 	LocalDate orderDate;
-	@OneToMany(mappedBy="order")
-	List<Items> itemsInOrder;
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+	List<Items> itemsInOrder = new ArrayList<>() ;
 	
 	public Order() {
 		super();

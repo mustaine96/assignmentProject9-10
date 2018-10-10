@@ -15,52 +15,43 @@ public class Items implements Serializable{
 	int quantity;
 	int productPrice;
 	int productId;
-	@ManyToOne
-	@JoinColumn(name="orderId")
-	Order order;
-	public Items(int itemId, int quantity, int productPrice, int productId, Order order) {
+//	@ManyToOne
+//	@JoinColumn(name="orderId")
+//	Order order;
+	public Items(int itemId, int quantity, int productPrice, int productId) {
 		super();
 		this.itemId = itemId;
 		this.quantity = quantity;
 		this.productPrice = productPrice;
 		this.productId = productId;
-		this.order = order;
 	}
-	
-	public Items() {
-		super();
-	}
-
-	public int getItemId() {
-		return itemId;
-	}
-	public void setItemId(int itemId) {
-		this.itemId = itemId;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	public int getProductPrice() {
-		return productPrice;
-	}
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
-	}
-	public int getProductId() {
-		return productId;
-	}
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-	public Order getOrder() {
-		return order;
-	}
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+public Items() {
+	super();
+}
+public int getItemId() {
+	return itemId;
+}
+public void setItemId(int itemId) {
+	this.itemId = itemId;
+}
+public int getQuantity() {
+	return quantity;
+}
+public void setQuantity(int quantity) {
+	this.quantity = quantity;
+}
+public int getProductPrice() {
+	return productPrice;
+}
+public void setProductPrice(int productPrice) {
+	this.productPrice = productPrice;
+}
+public int getProductId() {
+	return productId;
+}
+public void setProductId(int productId) {
+	this.productId = productId;
+}
 	
 	
 
