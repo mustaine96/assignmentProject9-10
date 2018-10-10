@@ -1,50 +1,81 @@
 package com.capgemini.assignmentItems.service.impl;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.assignmentItems.entity.Items;
 import com.capgemini.assignmentItems.entity.Order;
-import com.capgemini.assignmentItems.exceptions.OrderNotFoundException;
 import com.capgemini.assignmentItems.repository.OrderRepository;
 import com.capgemini.assignmentItems.service.OrderService;
+
+
 @Service
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
-	private OrderRepository repo;
-
-	@Override
-	public Order getOrder(int orderId) {
-		Optional<Order> optionalOrder = repo.findById(orderId);
-		if (optionalOrder.isPresent())
-			return optionalOrder.get();
-		throw new OrderNotFoundException("Order dont exist");
-
-	}
+	OrderRepository orderRepository;
 
 	@Override
 	public Order submitOrder(Order order) {
-
-		return repo.save(order);
-
+//		Random r = new Random();
+//		r.nextInt(0)+100;
+		//order.setStatus("new Order");
+		order.setDate(LocalDate.now());
+		
+		return orderRepository.save(order);
 	}
 
 	@Override
-	public void updateOrder(Order order) {
-		repo.save(order);
+	public Order updateOrder(Order order) {
+		Optional<Order> optional = orderRepository.findById(order.getOrderId());
+		if (optional.isPresent()) {
+			optional.get().setStatus("Completed");
+			return orderRepository.save(optional.get());
+		}
+		return null;
 	}
 
 	@Override
-	public void deleteOrder(int orderId) {
-		repo.deleteById(orderId);
+	public Order cancelOrder(int orderId) {
+		Optional<Order> optional = orderRepository.findById(orderId);
+		if (optional.isPresent()) {
+			optional.get().setStatus("Cancelled");
+			return orderRepository.save(optional.get());
+		}
+		return null;
 	}
 
 	@Override
-	public void cancelOrder(int orderId) {
-		repo.deleteById(orderId);
+	public Order deleteOrder(int orderId) {
+		Optional<Order> optional = orderRepository.findById(orderId);
+		if (optional.isPresent()) {
+			optional.get().setStatus("Deleted");
+			return orderRepository.save(optional.get());
+		}
+		return null;
+	}
 
+	@Override
+	public Order getOrder(int orderId) {
+		Optional<Order> optional = orderRepository.findById(orderId);
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
+
+
+	@Override
+	public List<Order> getOrders() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

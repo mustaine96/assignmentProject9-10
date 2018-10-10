@@ -2,33 +2,31 @@ package com.capgemini.assignmentItems.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-@Entity
-@Table(name="orderTable")
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
+@Document(collection="orders")
 public class Order implements Serializable{
-	@Id
-	int orderId;
-	double orderTotalAmount;
-	LocalDate orderDate;
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
-	List<Items> itemsInOrder = new ArrayList<>() ;
 	
-	public Order() {
-		super();
-	}
-	public Order(int orderId, double orderTotalAmount, LocalDate orderDate, List<Items> itemsInOrder) {
+	private int orderId;
+	private double total;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate date;
+	private long customerId;
+	private String status;
+	private Set<Items> items;
+	public Order(int orderId, double total, LocalDate date, int customerId, String status, Set<Items> items) {
 		super();
 		this.orderId = orderId;
-		this.orderTotalAmount = orderTotalAmount;
-		this.orderDate = orderDate;
-		this.itemsInOrder = itemsInOrder;
+		this.total = total;
+		this.date = date;
+		this.customerId = customerId;
+		this.status = status;
+		this.items = items;
+	}
+	public Order() {
+		super();
 	}
 	public int getOrderId() {
 		return orderId;
@@ -36,23 +34,42 @@ public class Order implements Serializable{
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
-	public double getOrderTotalAmount() {
-		return orderTotalAmount;
+	public double getTotal() {
+		return total;
 	}
-	public void setOrderTotalAmount(double orderTotalAmount) {
-		this.orderTotalAmount = orderTotalAmount;
+	public void setTotal(double total) {
+		this.total = total;
 	}
-	public LocalDate getOrderDate() {
-		return orderDate;
+	public LocalDate getDate() {
+		return date;
 	}
-	public void setOrderDate(LocalDate orderDate) {
-		this.orderDate = orderDate;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
-	public List<Items> getItemsInOrder() {
-		return itemsInOrder;
+	public long getCustomerId() {
+		return customerId;
 	}
-	public void setItemsInOrder(List<Items> itemsInOrder) {
-		this.itemsInOrder = itemsInOrder;
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Set<Items> getItems() {
+		return items;
+	}
+	public void setItems(Set<Items> items) {
+		this.items = items;
+	}
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", total=" + total + ", date=" + date + ", customerId=" + customerId
+				+ ", status=" + status + ", items=" + items + "]";
+	}
+	
+	
 	
 }

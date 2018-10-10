@@ -1,13 +1,25 @@
 package com.capgemini.assignmentItems.service;
 
+import java.util.List;
+import java.util.Set;
+
+import com.capgemini.assignmentItems.entity.Items;
 import com.capgemini.assignmentItems.entity.Order;
 
 public interface OrderService {
 	
-	public Order getOrder(int orderId);
 	public Order submitOrder(Order order);
-	public void updateOrder(Order order);
-	public void deleteOrder(int orderId);
-	public void cancelOrder(int orderId);
+
+	public Order updateOrder(Order order);
+
+	public Order cancelOrder(int orderId);
+
+	public Order deleteOrder(int orderId);
+
+	public Order getOrder(int orderId);
+
+
+
+	public List<Order> getOrders();
 
 }
